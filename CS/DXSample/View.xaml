@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="DXSLSample.View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:local="clr-namespace:DXSLSample"
+             >
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>            
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Margin="5" FontSize="16" >        
+            <TextBlock.Text>
+                <Binding Path="FilterCriteria" ElementName="filterControl" StringFormat="The filter criteria is  {0}"/>
+            </TextBlock.Text>
+        </TextBlock>
+
+        <dxe:FilterControl Name="filterControl" Grid.Row="1"
+                           local:FilterCriteriaChangedHelper.FilterControl="{Binding RelativeSource={RelativeSource Self}}"/>
+
+    </Grid>
+</UserControl>
