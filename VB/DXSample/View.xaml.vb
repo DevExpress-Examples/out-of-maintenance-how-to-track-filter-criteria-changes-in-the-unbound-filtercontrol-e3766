@@ -26,27 +26,34 @@ Imports DevExpress.Xpf.Editors.Filtering
 Imports DevExpress.Xpf.Editors.Settings
 
 Namespace DXSLSample
-    Partial Public Class View
-        Inherits UserControl
+	Partial Public Class View
+		Inherits UserControl
 
-        Public Sub New()
-            InitializeComponent()
+		Public Sub New()
+			InitializeComponent()
 
-            AddHandler Loaded, AddressOf View_Loaded
-        End Sub
+			AddHandler Me.Loaded, AddressOf View_Loaded
+		End Sub
 
-        Private Sub View_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs)
+		Private Sub View_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs)
 
-            Dim list As New List(Of FilterColumn)()
-            list.Add(New FilterColumn() With {.FieldName = "Name", .ColumnType = GetType(String)})
-            list.Add(New FilterColumn() With {.FieldName = "DateTime", .ColumnType = GetType(Date), .EditSettings = New DateEditSettings()})
+			Dim list As New List(Of FilterColumn)()
+			list.Add(New FilterColumn() With {
+				.FieldName = "Name",
+				.ColumnType = GetType(String)
+			})
+			list.Add(New FilterColumn() With {
+				.FieldName = "DateTime",
+				.ColumnType = GetType(DateTime),
+				.EditSettings = New DateEditSettings()
+			})
 
-            filterControl.FilterColumns = list
-        End Sub
-    End Class
+			filterControl.FilterColumns = list
+		End Sub
+	End Class
 
-    Public Class TestData
-        Public Property Name() As String
-        Public Property DateTime() As Date
-    End Class
+	Public Class TestData
+		Public Property Name() As String
+		Public Property DateTime() As DateTime
+	End Class
 End Namespace

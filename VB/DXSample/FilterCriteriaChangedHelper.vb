@@ -25,39 +25,41 @@ Imports DevExpress.Xpf.Editors.Filtering
 Imports DevExpress.Data.Filtering
 
 Namespace DXSLSample
-    Public Class FilterCriteriaChangedHelper
+	Public Class FilterCriteriaChangedHelper
 
 #If SILVERLIGHT Then
-        Public Shared ReadOnly FilterControlProperty As DependencyProperty = DependencyProperty.RegisterAttached("FilterControl", GetType(Object), GetType(FilterCriteriaChangedHelper), New PropertyMetadata(Nothing, New PropertyChangedCallback(AddressOf FilterControlPropertyChanged)))
+		Public Shared ReadOnly FilterControlProperty As DependencyProperty = DependencyProperty.RegisterAttached("FilterControl", GetType(Object), GetType(FilterCriteriaChangedHelper), New PropertyMetadata(Nothing, New PropertyChangedCallback(AddressOf FilterControlPropertyChanged)))
 #Else
-                Public Shared ReadOnly FilterControlProperty As DependencyProperty = DependencyProperty.RegisterAttached("FilterControl", GetType(Object), GetType(FilterCriteriaChangedHelper), New UIPropertyMetadata(Nothing, New PropertyChangedCallback(AddressOf FilterControlPropertyChanged)))
+				Public Shared ReadOnly FilterControlProperty As DependencyProperty = DependencyProperty.RegisterAttached("FilterControl", GetType(Object), GetType(FilterCriteriaChangedHelper), New UIPropertyMetadata(Nothing, New PropertyChangedCallback(AddressOf FilterControlPropertyChanged)))
 #End If
 
-        Private Shared Sub FilterControlPropertyChanged(ByVal sender As DependencyObject, ByVal e As DependencyPropertyChangedEventArgs)
-            If e.NewValue Is Nothing Then
-                Return
-            End If
-            Dim filterControl As FilterControl = DirectCast(e.NewValue, FilterControl)
-            AddHandler filterControl.LayoutUpdated, Sub(s, a) CheckFilterCriteria(filterControl)
-        End Sub
+		Private Shared Sub FilterControlPropertyChanged(ByVal sender As DependencyObject, ByVal e As DependencyPropertyChangedEventArgs)
+			If e.NewValue Is Nothing Then
+				Return
+			End If
+			Dim filterControl As FilterControl = CType(e.NewValue, FilterControl)
+			AddHandler filterControl.LayoutUpdated, Sub(s, a)
+				CheckFilterCriteria(filterControl)
+			End Sub
+		End Sub
 
-        Private Shared Sub CheckFilterCriteria(ByVal filterControl As FilterControl)
-            If CriteriaOperator.Equals(filterControl.ActualFilterCriteria, filterControl.FilterCriteria) Then
-                Return
-            End If
+		Private Shared Sub CheckFilterCriteria(ByVal filterControl As FilterControl)
+			If CriteriaOperator.Equals(filterControl.ActualFilterCriteria, filterControl.FilterCriteria) Then
+				Return
+			End If
 
-            filterControl.ApplyFilter()
-        End Sub
+			filterControl.ApplyFilter()
+		End Sub
 
-        #Region "CLRs"
+		#Region "CLRs"
 
-        Public Shared Function GetFilterControl(ByVal obj As DependencyObject) As Object
-            Return DirectCast(obj.GetValue(FilterControlProperty), Object)
-        End Function
+		Public Shared Function GetFilterControl(ByVal obj As DependencyObject) As Object
+			Return DirectCast(obj.GetValue(FilterControlProperty), Object)
+		End Function
 
-        Public Shared Sub SetFilterControl(ByVal obj As DependencyObject, ByVal value As Object)
-            obj.SetValue(FilterControlProperty, value)
-        End Sub
-        #End Region
-    End Class
+		Public Shared Sub SetFilterControl(ByVal obj As DependencyObject, ByVal value As Object)
+			obj.SetValue(FilterControlProperty, value)
+		End Sub
+		#End Region
+	End Class
 End Namespace
