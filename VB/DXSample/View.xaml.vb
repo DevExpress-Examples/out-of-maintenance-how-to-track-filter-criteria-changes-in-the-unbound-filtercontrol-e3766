@@ -1,4 +1,4 @@
-﻿' Developer Express Code Central Example:
+' Developer Express Code Central Example:
 ' How to track filter criteria changes in the unbound FilterControl
 ' 
 ' By default, the FilterControl's FilterCriteria
@@ -18,42 +18,33 @@
 ' 
 ' You can find sample updates and versions for different programming languages here:
 ' http://www.devexpress.com/example=E3766
-
-Imports System
 Imports System.Windows.Controls
 Imports System.Collections.Generic
 Imports DevExpress.Xpf.Editors.Filtering
 Imports DevExpress.Xpf.Editors.Settings
 
 Namespace DXSLSample
-	Partial Public Class View
-		Inherits UserControl
 
-		Public Sub New()
-			InitializeComponent()
+    Public Partial Class View
+        Inherits UserControl
 
-			AddHandler Me.Loaded, AddressOf View_Loaded
-		End Sub
+        Public Sub New()
+            Me.InitializeComponent()
+            AddHandler Loaded, New System.Windows.RoutedEventHandler(AddressOf View_Loaded)
+        End Sub
 
-		Private Sub View_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs)
+        Private Sub View_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs)
+            Dim list As List(Of FilterColumn) = New List(Of FilterColumn)()
+            list.Add(New FilterColumn() With {.FieldName = "Name", .ColumnType = GetType(String)})
+            list.Add(New FilterColumn() With {.FieldName = "DateTime", .ColumnType = GetType(Date), .EditSettings = New DateEditSettings()})
+            Me.filterControl.FilterColumns = list
+        End Sub
+    End Class
 
-			Dim list As New List(Of FilterColumn)()
-			list.Add(New FilterColumn() With {
-				.FieldName = "Name",
-				.ColumnType = GetType(String)
-			})
-			list.Add(New FilterColumn() With {
-				.FieldName = "DateTime",
-				.ColumnType = GetType(DateTime),
-				.EditSettings = New DateEditSettings()
-			})
+    Public Class TestData
 
-			filterControl.FilterColumns = list
-		End Sub
-	End Class
+        Public Property Name As String
 
-	Public Class TestData
-		Public Property Name() As String
-		Public Property DateTime() As DateTime
-	End Class
+        Public Property DateTime As Date
+    End Class
 End Namespace
