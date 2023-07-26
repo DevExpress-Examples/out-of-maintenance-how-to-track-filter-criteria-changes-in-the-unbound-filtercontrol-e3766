@@ -1,4 +1,4 @@
-﻿' Developer Express Code Central Example:
+' Developer Express Code Central Example:
 ' How to track filter criteria changes in the unbound FilterControl
 ' 
 ' By default, the FilterControl's FilterCriteria
@@ -18,18 +18,15 @@
 ' 
 ' You can find sample updates and versions for different programming languages here:
 ' http://www.devexpress.com/example=E3766
-
-Imports System
 Imports System.Windows
-Imports System.Collections.Generic
 
 Namespace DXSample
-	Partial Public Class MainWindow
-		Inherits Window
 
-		Public Sub New()
-			InitializeComponent()
-		End Sub
+    Public Partial Class MainWindow
+        Inherits Window
 
-	End Class
+        Public Sub New()
+            Me.InitializeComponent()
+        End Sub
+    End Class
 End Namespace
